@@ -325,93 +325,101 @@ return jsonify(data)
 
 Therefore, when a user visits:
 
-text
+```text
 http://127.0.0.1:5000/api
+```
 
+the contents of `data.json` are returned as a JSON response.
 
-the contents of 'data.json' are returned as a JSON response.
+If an error occurs while reading the file, the application returns an error message with HTTP status code `500`.
 
-If an error occurs while reading the file, the application returns an error message with HTTP status code '500'.
+---
 
 # 13. Submit Route
 
 ### URL
 
-text
+```text
 /submit
-
+```
 
 ### Method
 
-text
+```text
 POST
+```
 
-
-The '/submit' route handles the form submission.
+The `/submit` route handles the form submission.
 
 The application receives the submitted values using:
 
-python
+```python
 name = request.form.get("name")
 email = request.form.get("email")
 message = request.form.get("message")
-
+```
 
 The application checks whether all required fields have been entered.
 
-python
+```python
 if not name or not email or not message:
-
+```
 
 If any field is empty, the user receives:
 
-text
+```text
 All fields are required.
+```
+
+---
 
 # 14. Storing Data in MongoDB
 
 After successful validation, the application creates a document:
 
-python
+```python
 document = {
     "name": name,
     "email": email,
     "message": message
 }
-
+```
 
 The document is then inserted into the MongoDB collection using:
 
-python
+```python
 collection.insert_one(document)
-
+```
 
 After successful insertion, the application redirects the user to the success page.
+
+---
 
 # 15. Success Route
 
 ### URL
 
-text
+```text
 /success
-
+```
 
 ### Method
-text
+
+```text
 GET
+```
 
+The success route renders `success.html`.
 
-The success route renders 'success.html'.
-
-python
+```python
 @app.route("/success")
 def success():
     return render_template("success.html")
-
+```
 
 This page is displayed after the user's information has been successfully stored in MongoDB.
 
-
+---
 
 # 16. Input Validation
 
@@ -427,10 +435,13 @@ If any field is missing, the form is not submitted to MongoDB.
 
 Instead, the application displays:
 
-text
+```text
 All fields are required.
+```
 
 This prevents incomplete submissions from being stored in the database.
+
+---
 
 # 17. Error Handling
 
@@ -444,8 +455,9 @@ If the MongoDB connection fails, the application prints the connection error.
 
 If MongoDB is not available when a user submits the form, the application displays:
 
-text
+```text
 MongoDB connection is not available.
+```
 
 ### Database Insertion Error
 
@@ -453,43 +465,47 @@ If an error occurs while inserting the document into MongoDB, the application di
 
 ### API Error
 
-If the application cannot read 'data.json', the '/api' endpoint returns an error response with HTTP status code 500'.
+If the application cannot read `data.json`, the `/api` endpoint returns an error response with HTTP status code `500`.
+
+---
 
 # 18. Environment Variables
 
 The MongoDB connection string is stored in an environment variable rather than directly in the Python source code.
 
-The '.env' file contains:
+The `.env` file contains:
 
-text
+```text
 MONGO_URI=your_mongodb_connection_string
-
+```
 
 The application loads this value using:
 
-python
+```python
 load_dotenv()
-
+```
 
 and:
 
-python
+```python
 os.getenv("MONGO_URI")
-
+```
 
 ### Security
 
-The '.env' file may contain sensitive MongoDB credentials.
+The `.env` file may contain sensitive MongoDB credentials.
 
 Therefore, it should not be uploaded to GitHub.
 
-The '.gitignore' file should contain:
+The `.gitignore` file should contain:
 
-text
+```text
 .env
 .venv/
 __pycache__/
+```
 
+---
 
 # 19. Installation Requirements
 
@@ -502,8 +518,11 @@ Before running the project, install:
 
 Python version can be checked using:
 
-bash
+```bash
 python --version
+```
+
+---
 
 # 20. Installation Steps
 
@@ -511,59 +530,67 @@ python --version
 
 Clone the project from GitHub:
 
-bash
+```bash
 git clone <YOUR_GITHUB_REPOSITORY_URL>
-
+```
 
 Move into the project directory:
 
-bash
+```bash
 cd Flask_and_MongoDB_Rita
+```
+
+---
 
 ## Step 2: Create a Virtual Environment
 
 Create a virtual environment:
 
-bash
+```bash
 python -m venv .venv
-
+```
 
 On Windows, activate it using:
 
-bash
+```bash
 .venv\Scripts\activate
+```
+
+---
 
 ## Step 3: Install Dependencies
 
 Run:
 
-bash
+```bash
 pip install -r requirements.txt
+```
 
-
-
+---
 
 ## Step 4: Configure MongoDB
 
 Configure MongoDB Atlas and obtain the MongoDB connection URI.
 
-Create a '.env' file in the project directory:
+Create a `.env` file in the project directory:
 
-text
+```text
 MONGO_URI=your_mongodb_connection_string
-
+```
 
 Replace the value with your actual MongoDB Atlas connection string.
 
 The application automatically loads the URI from the `.env` file.
 
+---
+
 # 21. Running the Application
 
 After completing the setup, run:
 
-bash
+```bash
 python app.py
-
+```
 
 The Flask development server will start.
 
@@ -571,17 +598,17 @@ Open the URL displayed in the terminal.
 
 Normally, the application will be available at:
 
-text
+```text
 http://127.0.0.1:5000/
+```
 
-
-
+---
 
 # 22. Application Workflow
 
 The main application workflow is:
 
-text
+```text
 User
   ↓
 Open Website
@@ -603,11 +630,11 @@ Insert Document
 /success
   ↓
 success.html
-
+```
 
 ### API Workflow
 
-text
+```text
 User
   ↓
 /api
@@ -619,8 +646,9 @@ Load JSON Data
 jsonify()
   ↓
 JSON Response
+```
 
-
+---
 
 # 23. Testing
 
@@ -630,15 +658,15 @@ The application can be tested using the following test cases.
 
 Open:
 
-text
+```text
 http://127.0.0.1:5000/
+```
 
-
-Expected Result:
+**Expected Result:**
 
 The main webpage should be displayed.
 
-
+---
 
 ### Test Case 2: Valid Form Submission
 
@@ -650,49 +678,55 @@ Enter:
 
 Then submit the form.
 
-Expected Result:
+**Expected Result:**
 
 The data should be stored in MongoDB and the user should be redirected to the success page.
 
-
+---
 
 ### Test Case 3: Empty Form Field
 
 Leave one or more fields empty and submit the form.
 
-Expected Result:
+**Expected Result:**
 
 The application should display:
 
-text
+```text
 All fields are required.
+```
+
+---
 
 ### Test Case 4: API
 
 Open:
 
-text
+```text
 http://127.0.0.1:5000/api
+```
 
+**Expected Result:**
 
---Expected Result:--
+The contents of `data.json` should be returned as JSON.
 
-The contents of 'data.json' should be returned as JSON.
-
+---
 
 ### Test Case 5: MongoDB Verification
 
 Open MongoDB Atlas and navigate to:
 
-text
+```text
 flask_mongodb_db
     ↓
 submissions
+```
 
-
----Expected Result:---
+**Expected Result:**
 
 The submitted information should appear as a document.
+
+---
 
 # 24. Git and GitHub
 
@@ -700,14 +734,15 @@ Git is used for version control and GitHub is used to store the project reposito
 
 Basic Git commands:
 
-bash
+```bash
 git add .
 git commit -m "Add Flask MongoDB project"
 git push
+```
 
 The GitHub repository should contain:
 
-text
+```text
 app.py
 data.json
 requirements.txt
@@ -715,11 +750,11 @@ index.html
 success.html
 README.md
 .gitignore
+```
 
+The `.env` file should be excluded from the repository if it contains the MongoDB credentials.
 
-The '.env' file should be excluded from the repository if it contains the MongoDB credentials.
-
-
+---
 
 # 25. Advantages of the Project
 
@@ -739,6 +774,8 @@ This project provides practical experience with:
 * Git
 * GitHub
 
+---
+
 # 26. Future Improvements
 
 The project can be further improved by adding:
@@ -756,22 +793,26 @@ The project can be further improved by adding:
 * Better security
 * Cloud deployment
 
+---
 
 # 27. Conclusion
 
 This project demonstrates the integration of **Flask with MongoDB Atlas** to create a functional web application.
 
-Users can submit their name, email, and message through an HTML form. Flask validates the submitted information and stores it in the MongoDB 'submissions' collection.
+Users can submit their name, email, and message through an HTML form. Flask validates the submitted information and stores it in the MongoDB `submissions` collection.
 
-The project also provides an API endpoint that reads information from 'data.json' and returns it in JSON format.
+The project also provides an API endpoint that reads information from `data.json` and returns it in JSON format.
 
 Through this project, practical knowledge of **Python, Flask, MongoDB Atlas, PyMongo, HTML, JSON, environment variables, API development, and GitHub** is gained.
 
+---
 
 # 28. Author
 
-Name:Rita Sarkar
+**Name:** Rita Sarkar
 
-Project: Flask and MongoDB Web Application
+**Project:** Flask and MongoDB Web Application
 
-Technologies: Python, Flask, MongoDB Atlas, PyMongo, HTML, JSON
+**Purpose:** Educational Project
+
+**Technologies:** Python, Flask, MongoDB Atlas, PyMongo, HTML, JSON
