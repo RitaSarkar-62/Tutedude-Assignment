@@ -8,10 +8,6 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# -----------------------------
-# MongoDB Atlas Connection
-# -----------------------------
-
 MONGO_URI = os.getenv("MONGO_URI")
 
 client = None
@@ -30,19 +26,9 @@ if MONGO_URI:
     except Exception as e:
         print("MongoDB connection error:", e)
 
-
-# -----------------------------
-# Home Page
-# -----------------------------
-
 @app.route("/")
 def home():
     return render_template("index.html")
-
-
-# -----------------------------
-# Task 1: JSON API
-# -----------------------------
 
 @app.route("/api")
 def api():
@@ -57,11 +43,6 @@ def api():
         return jsonify({
             "error": str(e)
         }), 500
-
-
-# -----------------------------
-# Task 2: Form Submission
-# -----------------------------
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -101,19 +82,9 @@ def submit():
             error=f"Error: {str(e)}"
         )
 
-
-# -----------------------------
-# Success Page
-# -----------------------------
-
 @app.route("/success")
 def success():
     return render_template("success.html")
-
-
-# -----------------------------
-# Run Application
-# -----------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
