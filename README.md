@@ -809,10 +809,7 @@ Through this project, practical knowledge of **Python, Flask, MongoDB Atlas, PyM
 
 # 28. Author
 
-**Name:** Rita Sarkar
+Name: Rita Sarkar
+Project: Flask and MongoDB Web Application
 
-**Project:** Flask and MongoDB Web Application
 
-**Purpose:** Educational Project
-
-**Technologies:** Python, Flask, MongoDB Atlas, PyMongo, HTML, JSON
